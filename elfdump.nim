@@ -11,6 +11,16 @@ struct(e_ident, endian = l):
   u8: abi_version
   u8: _[7]
 
+struct(program_header, endian = l):
+  u32: typ
+  u32: flags
+  u64: offset
+  u64: v_addr
+  u64: p_addr
+  u64: file_size
+  u64: memory_size
+  u64: align
+
 struct(section_header, endian = l):
   u32: name_offset
   u32: typ
@@ -22,6 +32,10 @@ struct(section_header, endian = l):
   u32: info
   u64: align
   u64: entry_size
+
+struct(string_table, endian = l):
+  u8: _ = 0
+  s: strings{s.at_end}
 
 struct(elf, endian = l):
   *e_ident: ident
@@ -38,10 +52,14 @@ struct(elf, endian = l):
   u16: sh_entry_size
   u16: sh_count
   u16: sh_str_table_index
+  *program_header {pos(ph_offset.int)}:
+    ph_table[ph_count]
   *section_header {pos(sh_offset.int)}:
     sh_table[sh_count]
+  *string_table {pos(sh_table[sh_str_table_index].offset.int)}:
+    str_table(sh_table[sh_str_table_index].size)
 
-let elf_file = read_file("foo.o")
+let elf_file = read_file("foo")
 let elf_parsed = to_elf(elf_file)
 
 print elf_parsed
