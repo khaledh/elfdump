@@ -11,11 +11,13 @@ I leverage a couple of amazing libraries:
 - `git clone https://github.com/khaledh/elfdump`
 - `cd elfdump`
 - `nimble install`
-- `nim c elfdump.nim`
 
 ## Usage
 
 ```
+./elfdump
+ELF Dump
+
   elfdump <filename>
   elfdump (-h | --help)
   elfdump (-v | --version)
