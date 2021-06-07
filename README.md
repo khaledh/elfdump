@@ -5,6 +5,25 @@ I leverage a couple of amazing libraries:
 - [`binarylang`](https://github.com/sealmove/binarylang) to write the parser declaratively
 - [`docopt`](https://github.com/docopt/docopt.nim) to parse the command line args
 
+## Installation
+
+- Install Nim: https://nim-lang.org/install.html
+- `git clone https://github.com/khaledh/elfdump`
+- `cd elfdump`
+- `nimble install`
+
+## Usage
+
+```
+  elfdump <filename>
+  elfdump (-h | --help)
+  elfdump (-v | --version)
+
+Options:
+  -h --help     Show this screen.
+  -v --version  Show version.
+```
+
 Example:
 
 ```
