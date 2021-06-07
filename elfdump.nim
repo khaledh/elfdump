@@ -1,10 +1,28 @@
+let doc = """
+ELF Dump
+
+Usage:
+  elfdump <filename>
+  elfdump (-h | --help)
+  elfdump (-v | --version)
+
+Options:
+  -h --help     Show this screen.
+  -v --version  Show version.
+"""
+
+import docopt
 import strformat
 
 import elfconsts
 import elfparse
 
-let elf_file = read_file("elfdump")
-let elf_parsed = to_elf(elf_file)
+let args = docopt(doc, version = "ELF Dump 0.1")
+
+let elf_parsed =
+  ($args["<filename>"])
+  .read_file()
+  .to_elf()
 
 echo "ELF Header"
 echo fmt"  Class:                 {ElfClass(elf_parsed.eh.ident.class)}"
